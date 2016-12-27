@@ -1,15 +1,17 @@
 $LOAD_PATH.unshift 'lib'
-package = Rekey
-require "#{package.downcase}/version"
+package_name = 'rekey'
+require "#{package_name}"
+require "#{package_name}/version"
+package = const_get package_name.capitalize
 
 
 Gem::Specification.new do |s|
-  s.name        = package.downcase
+  s.name        = package_name
   s.version     = package.const_get 'VERSION'
   s.summary     = package.to_s
   s.authors     = ["Daniel Pepper"]
   s.files       = Dir.glob("lib/**/*")
-  s.homepage    = "https://github.com/d1hotpep/#{package.downcase}"
+  s.homepage    = "https://github.com/d1hotpep/#{package_name}"
   s.license     = 'MIT'
   s.description = <<description
     For turning Arrays into Hashes, with keys computed from the Array
