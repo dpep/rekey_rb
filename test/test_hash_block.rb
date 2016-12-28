@@ -32,17 +32,9 @@ class RekeyHashBlockTest < Minitest::Test
       },
       @input.rekey {|k, v| [v.to_s, v.to_f] }
     )
-
-    # assert_equal({
-    #     1 => 1,
-    #     2 => 2,
-    #     3 => 3,
-    #   },
-    #   @input.rekey {|k, v| v }
-    # )
   end
 
-  def test_keys
+  def test_arity1_keys
     assert_equal({
         1 => 1,
         2 => 2,
@@ -69,15 +61,40 @@ class RekeyHashBlockTest < Minitest::Test
     )
   end
 
-  # def test_nil_key
-  #   assert_equal([
-  #       1,
-  #       2,
-  #       3,
-  #     ],
+  def test_arity2_keys
+    assert_equal({
+        1 => 1,
+        2 => 2,
+        3 => 3,
+      },
+      @input.rekey {|k, v| v }
+    )
 
-  #     @input.rekey {|k, v| [nil, v] }
-  #   )
-  # end
+    assert_equal({
+        a: 1,
+        b: 2,
+        c: 3,
+      },
+      @input.rekey {|k, v| k }
+    )
+
+    assert_equal({
+        'aa' => 1,
+        'bb' => 2,
+        'cc' => 3,
+      },
+      @input.rekey {|k, v| k.to_s * 2 }
+    )
+  end
+
+  def test_nil_key
+    assert_equal([
+        1,
+        2,
+        3,
+      ],
+      @input.rekey {|k, v| [nil, v] }
+    )
+  end
 
 end

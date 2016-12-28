@@ -52,15 +52,25 @@ class RekeyArrayBlockTest < Minitest::Test
     )
   end
 
-  # def test_nil_key
-  #   assert_equal([
-  #       1,
-  #       2,
-  #       3,
-  #     ],
-  #     # k is nil because input is array
-  #     [*1..3].rekey {|k, v| [k, v.to_s] }
-  #   )
-  # end
+  def test_nil_key
+    assert_equal(
+      @input,
+      @input.rekey {|k, v| [nil, v.to_i] }
+    )
+
+    assert_equal(
+      @input,
+      # k is nil because input is array
+      @input.rekey {|k, v| [k, v.to_i] }
+    )
+
+    assert_equal([
+        '1',
+        '2',
+        '3',
+      ],
+      @input.rekey {|k, v| [nil, v.to_s] }
+    )
+  end
 
 end

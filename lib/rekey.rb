@@ -28,14 +28,8 @@ module Rekey
         proc {|v| v}
       end
 
+      # return type will be determined later
       res = nil
-      # determine return type.  generally a Hash, except when input
-      # is an Array and key_handle is null
-      if block
-        res = {}
-      else
-        res = (key_handle or enumerable.respond_to?(:keys)) ? {} : []
-      end
 
       enumerable.each do |*args|
         key = key_fn.call *args
@@ -51,7 +45,13 @@ module Rekey
             # standard block
             new_key = block.call value
           else
-            new_key, new_value = block.call key, value
+            data = block.call key, value
+            if data.is_a? Array
+              new_key, new_value = data
+            else
+              # only returned a new key value
+              new_key = data
+            end
           end
         else
           new_key = pull value, key_handle if key_handle
@@ -59,7 +59,21 @@ module Rekey
         end
 
         # collect results
+
+        unless res
+          # determine return type based on the first
+          # computed key value
+          res = new_key ? {} : []
+        end
+
         if res.is_a? Array
+          unless new_key.nil?
+            # safeguard against stupidity
+            raise ArgumentError.new(
+              "not expecting a key value, got: #{new_key}"
+            )
+          end
+
           res.push new_value
         else
           res[new_key] = new_value
