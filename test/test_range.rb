@@ -16,28 +16,28 @@ class RekeyRangeTest < Minitest::Test
         [ 1, 2 ],
         [ 4, 5 ],
       ],
-      @input.rekey(nil, '0..1')
+      @input.rekey(nil, 0..1)
     )
 
     assert_equal([
         [ 2 ],
         [ 5 ],
       ],
-      @input.rekey(nil, '1...2')
+      @input.rekey(nil, 1...2)
     )
 
     assert_equal({
         [ 2 ] => @input[0],
         [ 5 ] => @input[1],
       },
-      @input.rekey('1...2')
+      @input.rekey(1...2)
     )
 
     assert_equal({
         3 => [ 1, 2 ],
         6 => [ 4, 5 ],
       },
-      @input.rekey(2, '0..1')
+      @input.rekey(2, 0..1)
     )
   end
 
