@@ -1,6 +1,3 @@
-require 'awesome_print'
-require 'byebug'
-
 module Rekey
   class << self
 
@@ -12,7 +9,7 @@ module Rekey
         end
       else
         unless key_handle or value_handle
-          raise ArgumentError.new 'expected key_handle or value_handle'
+          raise ArgumentError.new 'expected 1 or 2 args, got 0'
         end
       end
 
@@ -87,15 +84,18 @@ module Rekey
     private
 
     def pull v, handle
-          # byebug
-      if v.respond_to? handle
+      if ([Symbol, String].include? handle.class) and v.respond_to? handle
         if v.method(handle).arity <= 0
           v.send handle
         else
           v.send handle, v
         end
+      elsif v.is_a? Array and handle.is_a? Integer
+        v[handle]
+      elsif v.is_a? Hash
+        v[handle]
       else
-
+        raise ArgumentError.new "invalid handle: #{handle}, for value #{v}"
       end
     end
 
