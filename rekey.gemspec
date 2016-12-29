@@ -9,10 +9,14 @@ Gem::Specification.new do |s|
   s.name        = package_name
   s.version     = package.const_get 'VERSION'
   s.summary     = package.to_s
-  s.authors     = ["Daniel Pepper"]
-  s.files       = Dir.glob("lib/**/*")
+  s.authors     = ['Daniel Pepper']
   s.homepage    = "https://github.com/d1hotpep/#{package_name}"
   s.license     = 'MIT'
+
+  s.files       = Dir.glob('lib/**/*')
+  s.test_files  = Dir.glob('test/**/test_*')
+  s.add_development_dependency "rake"
+
   s.description = <<description
     For turning Arrays into Hashes, with keys computed from the Array
     contents.  Or for rekeying Hashes.
