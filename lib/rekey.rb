@@ -91,7 +91,11 @@ module Rekey
           v.send handle, v
         end
       elsif v.is_a? Array
-        v[handle]
+        if handle.is_a? Regexp
+          v.grep handle
+        else
+          v[handle]
+        end
       elsif v.is_a? Hash
         v[handle]
       else
