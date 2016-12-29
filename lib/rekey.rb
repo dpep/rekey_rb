@@ -36,7 +36,7 @@ module Rekey
 
         if block
           if block.arity <= 0
-            # function pointer
+            # function pointer, eg. &:to_i
             new_key = block.call value
           elsif block.arity == 1
             # standard block
