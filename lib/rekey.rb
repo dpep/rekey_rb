@@ -90,7 +90,17 @@ module Rekey
         else
           v.send handle, v
         end
-      elsif v.is_a? Array and handle.is_a? Integer
+      elsif v.is_a? Array
+        if handle.is_a? String and handle.include? '..'
+          # properly format ranges
+          ends = handle.split('.').reject(&:empty?).map(&:to_i)
+          handle = Range.new(
+            ends.first,
+            ends.last,
+            handle.include?('...')   # exclude_end
+          )
+        end
+
         v[handle]
       elsif v.is_a? Hash
         v[handle]
