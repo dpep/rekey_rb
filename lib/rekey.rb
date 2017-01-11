@@ -3,15 +3,7 @@ module Rekey
 
     def rekey(enumerable, key_handle = nil, value_handle = nil, &block)
       # validate input
-      if block
-        if (key_handle or value_handle)
-          raise ArgumentError.new 'expected key / value handles, *or* block'
-        end
-      else
-        unless key_handle or value_handle
-          raise ArgumentError.new 'expected 1 or 2 args, got 0'
-        end
-      end
+      validate_input key_handle, value_handle, &block
 
       key_fn = if enumerable.respond_to?(:keys)
         proc {|k, v| k}
@@ -25,9 +17,9 @@ module Rekey
         proc {|v| v}
       end
 
-      # return type will be determined later
-      res = nil
+      res = get_return_type enumerable, key_handle, value_handle, &block
 
+      # rekey input
       enumerable.each do |*args|
         key = key_fn.call *args
         value = value_fn.call *args
@@ -82,6 +74,42 @@ module Rekey
 
 
     private
+
+    def validate_input key_handle, value_handle, &block
+      if block
+        if (key_handle or value_handle)
+          raise ArgumentError.new 'expected key / value handles, *or* block'
+        end
+      else
+        unless key_handle or value_handle
+          raise ArgumentError.new 'expected 1 or 2 args, got 0'
+        end
+      end
+    end
+
+
+    def get_return_type enumerable, key_handle, value_handle, &block
+      # determine return type
+      res = if block
+        # no way to determine type...do it dynamically,
+        # based on block return type
+
+        if enumerable.empty?
+          raise TypeError.new(
+            'unable to determine return type for empty input'
+          )
+        end
+
+        nil
+      else
+        if key_handle or enumerable.respond_to?(:keys)
+          {}
+        else
+          []
+        end
+      end
+    end
+
 
     def pull v, handle
       if ([Symbol, String].include? handle.class) and v.respond_to? handle
