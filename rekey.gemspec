@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.version     = package.const_get 'VERSION'
   s.authors     = ['Daniel Pepper']
   s.summary     = package.to_s
-  s.description = File.read('README.md')
+  s.description = 'A handful of useful hacks...good for any project'
   s.homepage    = "https://github.com/d1hotpep/#{package_name}"
   s.license     = 'MIT'
 
