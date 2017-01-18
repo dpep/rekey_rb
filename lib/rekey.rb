@@ -1,4 +1,6 @@
 module Rekey
+  VERSION = '1.1.1'
+
   class << self
 
     def rekey(enumerable, key_handle = nil, value_handle = nil, &block)
@@ -34,6 +36,7 @@ module Rekey
             # standard block
             new_key = block.call value
           else
+            # block that wants both key and value
             data = block.call key, value
             if data.is_a? Array
               new_key, new_value = data
