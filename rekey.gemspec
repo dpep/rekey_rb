@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors     = ['Daniel Pepper']
   s.summary     = package.to_s
   s.description = 'Reformat Enumerables into Hashes, using derived keys / values'
-  s.homepage    = "https://github.com/d1hotpep/#{package_name}"
+  s.homepage    = "https://github.com/dpep/#{package_name}"
   s.license     = 'MIT'
 
   s.files       = Dir.glob('lib/**/*')
