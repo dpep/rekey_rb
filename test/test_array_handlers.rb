@@ -124,36 +124,6 @@ class RekeyArrayHandlersTest < Minitest::Test
     )
   end
 
-  def test_array_hash
-    data = [
-      { a: 1 },
-      { b: 2 },
-      { c: 3 },
-    ]
-
-    assert_equal(
-      [ [:a], [:b], [:c] ],
-      data.rekey(nil, :keys)
-    )
-
-    assert_equal(
-      [ :a, :b, :c ],
-      data.rekey(nil, :keys).rekey(nil, :first)
-    )
-
-    assert_equal({
-        { a: 1 }.hash => data.first,
-      },
-      data.take(1).rekey(:hash)
-    )
-
-    assert_equal({
-        { a: 1 }.hash => [:a, 1],
-      },
-      data.take(1).rekey(:hash, :first)
-    )
-  end
-
 
   def test_hash_indices
     data = [

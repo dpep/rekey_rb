@@ -1,8 +1,7 @@
 $LOAD_PATH.unshift 'lib'
 package_name = 'rekey'
 require "#{package_name}"
-require "#{package_name}/version"
-package = const_get package_name.capitalize
+package = Object.const_get package_name.capitalize
 
 
 Gem::Specification.new do |s|
@@ -16,5 +15,9 @@ Gem::Specification.new do |s|
 
   s.files       = Dir.glob('lib/**/*')
   s.test_files  = Dir.glob('test/**/test_*')
+
+  s.add_runtime_dependency 'pluckit', '~> 0'
+
+  s.add_development_dependency 'minitest', '~> 5'
   s.add_development_dependency 'rake', '~> 10'
 end

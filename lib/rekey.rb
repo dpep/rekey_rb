@@ -1,5 +1,8 @@
+require 'pluckit'
+
+
 module Rekey
-  VERSION = '1.1.1'
+  VERSION = '2.0.0'
 
   class << self
 
@@ -46,8 +49,8 @@ module Rekey
             end
           end
         else
-          new_key = pull value, key_handle if key_handle
-          new_value = pull value, value_handle if value_handle
+          new_key = PluckIt.pluck value, key_handle if key_handle
+          new_value = PluckIt.pluck value, value_handle if value_handle
         end
 
         # collect results
@@ -110,27 +113,6 @@ module Rekey
         else
           []
         end
-      end
-    end
-
-
-    def pull v, handle
-      if ([Symbol, String].include? handle.class) and v.respond_to? handle
-        if v.method(handle).arity <= 0
-          v.send handle
-        else
-          v.send handle, v
-        end
-      elsif v.is_a? Array
-        if handle.is_a? Regexp
-          v.grep handle
-        else
-          v[handle]
-        end
-      elsif v.is_a? Hash
-        v[handle]
-      else
-        raise ArgumentError.new "invalid handle: #{handle}, for value #{v}"
       end
     end
 
