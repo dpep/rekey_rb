@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    rekey (2.0.0)
+    rekey (2.0.1)
       pluckit (~> 0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     minitest (5.10.3)
-    pluckit (0.1.0)
+    pluckit (0.2.0)
     rake (10.5.0)
 
 PLATFORMS
