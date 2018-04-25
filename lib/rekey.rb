@@ -22,7 +22,12 @@ module Rekey
         proc {|v| v}
       end
 
-      res = get_return_type enumerable, key_handle, value_handle, &block
+      # determine return type
+      res = if key_handle or block or enumerable.respond_to?(:keys)
+        {}
+      else
+        []
+      end
 
       # rekey input
       enumerable.each do |*args|
@@ -40,13 +45,7 @@ module Rekey
             new_key = block.call value
           else
             # block that wants both key and value
-            data = block.call key, value
-            if data.is_a? Array
-              new_key, new_value = data
-            else
-              # only returned a new key value
-              new_key = data
-            end
+            new_key = block.call key, value
           end
         else
           new_key = PluckIt.pluck value, key_handle if key_handle
@@ -54,13 +53,6 @@ module Rekey
         end
 
         # collect results
-
-        unless res
-          # determine return type based on the first
-          # computed key value
-          res = new_key ? {} : []
-        end
-
         if res.is_a? Array
           unless new_key.nil?
             # safeguard against stupidity
@@ -93,28 +85,6 @@ module Rekey
       end
     end
 
-
-    def get_return_type enumerable, key_handle, value_handle, &block
-      # determine return type
-      res = if block
-        # no way to determine type...do it dynamically,
-        # based on block return type
-
-        if enumerable.empty?
-          raise TypeError.new(
-            'unable to determine return type for empty input'
-          )
-        end
-
-        nil
-      else
-        if key_handle or enumerable.respond_to?(:keys)
-          {}
-        else
-          []
-        end
-      end
-    end
 
   end
 end

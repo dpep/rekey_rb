@@ -24,10 +24,6 @@ class RekeyEmptyInputTest < Minitest::Test
       [],
       Set.new.rekey(nil, :k)
     )
-
-    assert_raises TypeError do
-      {}.rekey do |k| 1 end
-    end
   end
 
 end
