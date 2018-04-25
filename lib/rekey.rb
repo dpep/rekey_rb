@@ -80,7 +80,7 @@ module Rekey
         end
       else
         unless key_handle or value_handle
-          raise ArgumentError.new 'expected 1 or 2 args, got 0'
+          raise ArgumentError.new 'key_handle and/or value_handle are required'
         end
       end
     end
