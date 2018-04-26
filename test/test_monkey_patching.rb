@@ -13,8 +13,10 @@ class MonkeyPatchingTest < Minitest::Test
       skip
     end
 
-    # `require 'pluckit/pluck'` should load PluckIt
-    # but not monkey patch
+    # `require 'rekey/rekey'` should load Rekey
+    assert Rekey
+
+    # but no monkey patching
     assert_raises NoMethodError do
       [ 1, 2, 3 ].rekey 0
     end
@@ -27,7 +29,7 @@ class MonkeyPatchingTest < Minitest::Test
       Set.new([ 1, 2, 3 ]).rekey 0
     end
 
-    puts 'no monkey patching'
+    puts 'yay, no monkey patching'
   end
 
 
