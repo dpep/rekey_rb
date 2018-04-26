@@ -5,7 +5,6 @@ module Rekey
   class << self
 
     def rekey(enumerable, key_handle = nil, value_handle = nil, &block)
-      # validate input
       validate_input key_handle, value_handle, &block
 
       key_value_fn = if enumerable.respond_to?(:keys)
@@ -22,7 +21,7 @@ module Rekey
       end
 
       # rekey input
-      enumerable.each do |*args|
+      enumerable.each_with_object(res) do |*args, res|
         key, value = key_value_fn.call *args
         new_key = key
         new_value = value
@@ -57,8 +56,6 @@ module Rekey
           res[new_key] = new_value
         end
       end
-
-      res
     end
 
 
