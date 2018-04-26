@@ -8,16 +8,10 @@ module Rekey
       # validate input
       validate_input key_handle, value_handle, &block
 
-      key_fn = if enumerable.respond_to?(:keys)
-        proc {|k, v| k}
+      key_value_fn = if enumerable.respond_to?(:keys)
+        proc {|k, v| [k, v]}
       else
-        proc {|v| nil}
-      end
-
-      value_fn = if enumerable.respond_to?(:values)
-        proc {|k, v| v}
-      else
-        proc {|v| v}
+        proc {|v| [nil, v]}
       end
 
       # determine return type
@@ -29,8 +23,7 @@ module Rekey
 
       # rekey input
       enumerable.each do |*args|
-        key = key_fn.call *args
-        value = value_fn.call *args
+        key, value = key_value_fn.call *args
         new_key = key
         new_value = value
 
