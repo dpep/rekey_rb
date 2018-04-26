@@ -38,8 +38,8 @@ module Rekey
             new_key = block.call key, value
           end
         else
-          new_key = PluckIt.pluck value, key_handle if key_handle
-          new_value = PluckIt.pluck value, value_handle if value_handle
+          new_key = PluckIt.pluckit value, key_handle if key_handle
+          new_value = PluckIt.pluckit value, value_handle if value_handle
         end
 
         # collect results

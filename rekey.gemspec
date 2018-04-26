@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files       = Dir.glob('lib/**/*')
   s.test_files  = Dir.glob('test/**/test_*')
 
-  s.add_runtime_dependency 'pluckit', '~> 1'
+  s.add_runtime_dependency 'pluckit', '~> 1.1'
 
   s.add_development_dependency 'minitest', '~> 5'
   s.add_development_dependency 'rake', '~> 10'
