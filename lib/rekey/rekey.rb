@@ -13,15 +13,8 @@ module Rekey
         proc {|v| [nil, v]}
       end
 
-      # determine return type
-      res = if key_handle or block or enumerable.respond_to?(:keys)
-        {}
-      else
-        []
-      end
-
       # rekey input
-      enumerable.each_with_object(res) do |*args, res|
+      enumerable.each_with_object({}) do |*args, res|
         key, value = key_value_fn.call *args
         new_key = key
         new_value = value
@@ -35,26 +28,22 @@ module Rekey
             new_key = block.call value
           else
             # block that wants both key and value
+
+            if key_value_fn.arity != 2
+              raise ArgumentError.new(
+                'rekey block requests key/value pair but only value available'
+              )
+            end
+
             new_key = block.call key, value
           end
         else
-          new_key = PluckIt.pluckit value, key_handle if key_handle
+          new_key = PluckIt.pluckit value, key_handle
           new_value = PluckIt.pluckit value, value_handle if value_handle
         end
 
         # collect results
-        if res.is_a? Array
-          unless new_key.nil?
-            # safeguard against stupidity
-            raise ArgumentError.new(
-              "not expecting a key value, got: #{new_key}"
-            )
-          end
-
-          res.push new_value
-        else
-          res[new_key] = new_value
-        end
+        res[new_key] = new_value
       end
     end
 
@@ -66,10 +55,8 @@ module Rekey
         if (key_handle or value_handle)
           raise ArgumentError.new 'expected key / value handles, *or* block'
         end
-      else
-        unless key_handle or value_handle
-          raise ArgumentError.new 'key_handle and/or value_handle are required'
-        end
+      elsif key_handle.nil?
+        raise ArgumentError.new 'key handle or block required'
       end
     end
 

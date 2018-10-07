@@ -6,24 +6,24 @@ class RekeyRegexpTest < Minitest::Test
 
   def setup
     @input = [
-      [ 'a', 'aa', 'b', 'ba' ],
-      [ 'b', 'c', 'bc' ],
+      [ 'a', 'aa', 'b', 'ba', 'dd' ],
+      [ 'b', 'c', 'bc', 'de' ],
     ]
   end
 
   def test_stuff
-    assert_equal([
-        ['a', 'aa', 'ba'],
-        [],
-      ],
-      @input.rekey(nil, /a/)
+    assert_equal({
+        'a' => ['a', 'aa', 'ba'],
+        'b' => [],
+      },
+      @input.rekey(0, /a/)
     )
 
-    assert_equal([
-        ['b', 'ba'],
-        ['b', 'bc'],
-      ],
-      @input.rekey(nil, /b/)
+    assert_equal({
+        ['dd'] => ['b', 'ba'],
+        ['de'] => ['b', 'bc'],
+      },
+      @input.rekey(/d/, /b/)
     )
   end
 

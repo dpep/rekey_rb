@@ -3,6 +3,7 @@ require_relative '../lib/rekey'
 
 
 class RekeyHashHandlersTest < Minitest::Test
+
   def setup
     @input = {
       a: 1,
@@ -10,6 +11,26 @@ class RekeyHashHandlersTest < Minitest::Test
       c: 3,
     }
   end
+
+
+  def test_keys
+    assert_equal({
+        '1' => 1,
+        '2' => 2,
+        '3' => 3,
+      },
+      @input.rekey(:to_s)
+    )
+
+    assert_equal({
+        1.0 => 1,
+        2.0 => 2,
+        3.0 => 3,
+      },
+      @input.rekey(:to_f)
+    )
+  end
+
 
   def test_both
     assert_equal({
@@ -35,49 +56,8 @@ class RekeyHashHandlersTest < Minitest::Test
       },
       @input.rekey('to_s', 'to_i')
     )
-
   end
 
-  def test_keys
-    assert_equal({
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-      },
-      @input.rekey(:to_s)
-    )
-
-    assert_equal({
-        1.0 => 1,
-        2.0 => 2,
-        3.0 => 3,
-      },
-      @input.rekey(:to_f)
-    )
-  end
-
-  def test_values
-    assert_equal(
-      @input,
-      @input.rekey(nil, :to_i)
-    )
-
-    assert_equal({
-        a: '1',
-        b: '2',
-        c: '3',
-      },
-      @input.rekey(nil, :to_s)
-    )
-
-    assert_equal({
-        a: '1',
-        b: '2',
-        c: '3',
-      },
-      @input.rekey(nil, 'to_s')
-    )
-  end
 
   def test_hash_array
     data = {
@@ -87,21 +67,22 @@ class RekeyHashHandlersTest < Minitest::Test
     }
 
     assert_equal({
-        a: 1,
-        b: 4,
-        c: 7,
-      },
-      data.rekey(nil, 0)
-    )
-
-    assert_equal({
         1 => 2,
         4 => 5,
         7 => 8,
       },
       data.rekey(0, 1)
     )
+
+    assert_equal({
+        1 => 3,
+        4 => 6,
+        7 => 9,
+      },
+      data.rekey(:min, :max)
+    )
   end
+
 
   def test_hash_hash
     data = {
@@ -111,11 +92,11 @@ class RekeyHashHandlersTest < Minitest::Test
     }
 
     assert_equal({
-        a: 1,
-        b: 2,
-        c: 3,
+        1 => { i: 1, v: 2 },
+        2 => { i: 2, v: 4 },
+        3 => { i: 3, v: 6 },
       },
-      data.rekey(nil, :i)
+      data.rekey(:i)
     )
 
     assert_equal({

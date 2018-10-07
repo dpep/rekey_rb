@@ -8,7 +8,7 @@ class RekeyArrayBlockTest < Minitest::Test
     @input = [*1..3]
   end
 
-  def test_keys
+  def test_all
     assert_equal({
         1 => 1,
         2 => 2,
@@ -32,12 +32,10 @@ class RekeyArrayBlockTest < Minitest::Test
       },
       @input.rekey {|v| v.to_s }
     )
-  end
 
-  def test_nil_key
     assert_equal(
       { nil => 3 },
-      @input.rekey {|k, v| nil }
+      @input.rekey {|v| nil }
     )
   end
 
