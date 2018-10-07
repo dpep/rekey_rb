@@ -18,6 +18,14 @@ class RekeyArrayBlockTest < Minitest::Test
     )
 
     assert_equal({
+        1 => 1,
+        2 => 2,
+        3 => 3,
+      },
+      @input.rekey(&:itself)
+    )
+
+    assert_equal({
         2 => 1,
         4 => 2,
         6 => 3,
@@ -36,6 +44,11 @@ class RekeyArrayBlockTest < Minitest::Test
     assert_equal(
       { nil => 3 },
       @input.rekey {|v| nil }
+    )
+
+    assert_equal(
+      { 123 => 3 },
+      @input.rekey { 123 }
     )
   end
 

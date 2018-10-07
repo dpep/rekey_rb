@@ -20,11 +20,9 @@ module Rekey
         new_value = value
 
         if block
-          if block.arity <= 0
-            # function pointer, eg. &:to_i
-            new_key = block.call value
-          elsif block.arity == 1
-            # standard block
+          if block.arity < 2
+            # block only wants value
+            # arity -1 is a function pointer, eg. &:to_i
             new_key = block.call value
           else
             # block that wants both key and value
