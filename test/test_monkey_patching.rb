@@ -1,9 +1,10 @@
 require 'minitest/autorun'
 require 'set'
-require_relative '../lib/rekey'
+require_relative '../lib/rekey/rekey'
 
 
 class MonkeyPatchingTest < Minitest::Test
+
   def test_not_installed
     if defined? Rekey::VERSION
       # entire library was loaded, so these tests are invalid.
@@ -28,6 +29,15 @@ class MonkeyPatchingTest < Minitest::Test
     end
 
     puts 'yay, no monkey patching'
+  end
+
+
+  def test_pluckit
+    assert PluckIt
+
+    assert_raises NoMethodError do
+      [ 1, 2, 3 ].pluck 0
+    end
   end
 
 
