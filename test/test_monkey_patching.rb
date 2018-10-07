@@ -1,8 +1,6 @@
 require 'minitest/autorun'
 require 'set'
-
-$LOAD_PATH.unshift 'lib'
-require 'rekey/rekey'
+require_relative '../lib/rekey'
 
 
 class MonkeyPatchingTest < Minitest::Test

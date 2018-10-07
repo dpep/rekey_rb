@@ -1,5 +1,6 @@
 require 'minitest/autorun'
-require 'rekey'
+require 'set'
+require_relative '../lib/rekey'
 
 
 class RekeyEmptyInputTest < Minitest::Test
