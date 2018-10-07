@@ -25,7 +25,7 @@ module Rekey
           # arity -1 is a function pointer, eg. &:to_i
           new_key = block.call value
         else
-          # block that wants both key and value
+          # block wants both key and value
 
           if key_value_fn.arity != 2
             raise ArgumentError.new(
