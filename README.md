@@ -45,3 +45,7 @@ require 'rekey'
   3 => 6
 }
 ```
+
+
+----
+![Gem](https://img.shields.io/gem/dt/rekey?style=plastic)
