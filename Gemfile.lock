@@ -1,23 +1,23 @@
 PATH
   remote: .
   specs:
-    rekey (3.0.1)
-      pluckit (~> 1.1)
+    rekey (4.0.0)
+      pluckit
 
 GEM
   remote: https://rubygems.org/
   specs:
-    minitest (5.10.3)
+    minitest (5.14.0)
     pluckit (1.1.0)
-    rake (10.5.0)
+    rake (13.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  minitest (~> 5)
-  rake (~> 10)
+  minitest
+  rake
   rekey!
 
 BUNDLED WITH
-   1.16.1
+   1.17.2
