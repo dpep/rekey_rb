@@ -8,7 +8,7 @@ Reformat Enumerables into Hashes, using derived keys / values
 
 
 #### Usage
-```
+```ruby
 require 'rekey'
 
 # key a list of records by id
