@@ -1,4 +1,5 @@
 require 'pluckit/pluck'
+require 'rekey/version'
 
 
 module Rekey

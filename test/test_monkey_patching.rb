@@ -4,18 +4,12 @@ require_relative '../lib/rekey/rekey'
 
 
 class MonkeyPatchingTest < Minitest::Test
-
-  def test_not_installed
-    if defined? Rekey::VERSION
-      # entire library was loaded, so these tests are invalid.
-      # this happens when run through `rake`
-      skip
-    end
-
-    # `require 'rekey/rekey'` should load Rekey
+  def test_lib_installed
+    # `require 'rekey/rekey'` should load Rekey module
     assert Rekey
+  end
 
-    # but no monkey patching
+  def test_no_monkey_patch
     assert_raises NoMethodError do
       [ 1, 2, 3 ].rekey 0
     end
@@ -27,10 +21,7 @@ class MonkeyPatchingTest < Minitest::Test
     assert_raises NoMethodError do
       Set.new([ 1, 2, 3 ]).rekey 0
     end
-
-    puts 'yay, no monkey patching'
   end
-
 
   def test_pluckit
     assert PluckIt
@@ -39,6 +30,4 @@ class MonkeyPatchingTest < Minitest::Test
       [ 1, 2, 3 ].pluck 0
     end
   end
-
-
 end
