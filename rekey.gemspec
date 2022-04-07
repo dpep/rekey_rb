@@ -1,7 +1,7 @@
-$LOAD_PATH.unshift 'lib'
-package_name = 'rekey'
-require "#{package_name}"
-package = Object.const_get package_name.capitalize
+package_name = File.basename(__FILE__).split('.')[0]
+require "./lib/#{package_name}/version"
+
+package = Rekey
 
 
 Gem::Specification.new do |s|
