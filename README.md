@@ -1,5 +1,7 @@
 Rekey
 ======
+![Gem](https://img.shields.io/gem/dt/rekey?style=plastic)
+[![codecov](https://codecov.io/gh/dpep/rekey_rb/branch/main/graph/badge.svg?token=Z6W48XUEQD)](https://codecov.io/gh/dpep/rekey_rb)
 
 Reformat Enumerables into Hashes, using derived keys / values
 
@@ -48,4 +50,3 @@ require 'rekey'
 
 
 ----
-![Gem](https://img.shields.io/gem/dt/rekey?style=plastic)
