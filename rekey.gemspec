@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.files       = Dir.glob('lib/**/*')
-  s.test_files  = Dir.glob('test/**/test_*')
+  s.test_files  = Dir.glob('spec/**/*') + Dir.glob('test/**/*')
 
   s.add_runtime_dependency 'pluckit'
 
