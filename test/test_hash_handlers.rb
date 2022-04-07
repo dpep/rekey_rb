@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require_relative '../lib/rekey'
+require_relative 'test_helper'
 
 
 class RekeyHashHandlersTest < Minitest::Test
