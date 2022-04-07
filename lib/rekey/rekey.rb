@@ -5,7 +5,7 @@ module Rekey
   extend self
 
   def rekey(enumerable, key_handle = nil, value_handle = nil, &block)
-    validate_input key_handle, value_handle, &block
+    validate_input!(key_handle, value_handle, &block)
 
     key_value_fn = if enumerable.respond_to?(:keys)
       proc {|k, v| [k, v]}
@@ -15,7 +15,7 @@ module Rekey
 
     # rekey input
     enumerable.each_with_object({}) do |*args, res|
-      key, value = key_value_fn.call *args
+      key, value = key_value_fn.call(*args)
       new_key = key
       new_value = value
 
@@ -23,7 +23,7 @@ module Rekey
         if block.arity < 2
           # block only wants value
           # arity -1 is a function pointer, eg. &:to_i
-          new_key = block.call value
+          new_key = block.call(value)
         else
           # block wants both key and value
 
@@ -33,11 +33,11 @@ module Rekey
             )
           end
 
-          new_key = block.call key, value
+          new_key = block.call(key, value)
         end
       else
-        new_key = PluckIt.pluckit value, key_handle
-        new_value = PluckIt.pluckit value, value_handle if value_handle
+        new_key = PluckIt.pluckit(value, key_handle)
+        new_value = PluckIt.pluckit(value, value_handle) if value_handle
       end
 
       # collect results
@@ -48,15 +48,13 @@ module Rekey
 
   private
 
-  def validate_input key_handle, value_handle, &block
+  def validate_input!(key_handle, value_handle, &block)
     if block
-      if (key_handle or value_handle)
-        raise ArgumentError.new 'expected key / value handles, *or* block'
+      if (key_handle || value_handle)
+        raise ArgumentError, 'expected key / value handles, *or* block'
       end
     elsif key_handle.nil?
-      raise ArgumentError.new 'key handle or block required'
+      raise ArgumentError, 'key handle or block required'
     end
   end
-
-
 end
