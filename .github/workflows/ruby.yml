@@ -23,9 +23,9 @@ jobs:
         uses: actions/checkout@v2
       - name: setup Ruby ${{ matrix.ruby-version }}
         uses: ruby/setup-ruby@v1
-        # with:
-        #   ruby-version: ${{ matrix.ruby-version }}
-        #   bundler-cache: true
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
       - name: install dependencies
         run: bundle install
       - name: run tests
