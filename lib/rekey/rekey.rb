@@ -5,6 +5,12 @@ require "rekey/version"
 module Rekey
   extend self
 
+  refine Enumerable do
+    def rekey(key_handle = nil, value_handle = nil, &block)
+      Rekey.rekey(self, key_handle, value_handle, &block)
+    end
+  end
+
   def rekey(enumerable, key_handle = nil, value_handle = nil, &block)
     validate_input!(key_handle, value_handle, &block)
 
