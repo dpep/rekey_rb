@@ -3,7 +3,6 @@ require "./lib/#{package_name}/version"
 
 package = Rekey
 
-
 Gem::Specification.new do |s|
   s.name        = package_name
   s.version     = package.const_get 'VERSION'
@@ -12,9 +11,9 @@ Gem::Specification.new do |s|
   s.description = 'Reformat Enumerables into Hashes, using derived keys / values'
   s.homepage    = "https://github.com/dpep/#{package_name}_rb"
   s.license     = 'MIT'
+  s.files       = `git ls-files * ':!:spec'`.split("\n")
 
-  s.files       = Dir.glob('lib/**/*')
-  s.test_files  = Dir.glob('spec/**/*') + Dir.glob('test/**/*')
+  s.required_ruby_version = '>= 3'
 
   s.add_runtime_dependency 'pluckit'
 
