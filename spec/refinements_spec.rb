@@ -8,7 +8,7 @@ describe Rekey, :before_patch do
     it { expect({}.respond_to?(:rekey)).to be true }
     it { expect(Set.new.respond_to?(:rekey)).to be true }
 
-    it "can reky" do
+    it "can rekey" do
       res = [ 1, 2, 3 ].rekey { |x| x.to_s }
       expect(res).to eq({
         "1" => 1,
