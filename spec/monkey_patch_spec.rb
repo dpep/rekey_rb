@@ -1,4 +1,4 @@
-describe Rekey, :skip_patch do
+describe Rekey, :before_patch do
   it "did not monkey patch Enumerable" do
     expect(Enumerable.method_defined?(:rekey)).to be false
     expect([]).not_to respond_to(:rekey)

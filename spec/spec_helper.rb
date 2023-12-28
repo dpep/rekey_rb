@@ -13,7 +13,7 @@ end
 
 # load this gem
 gem_name = Dir.glob("*.gemspec")[0].split(".")[0]
-require gem_name
+require "rekey/rekey"
 
 RSpec.configure do |config|
   # allow "fit" examples
@@ -24,13 +24,15 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  # monkey patch unless :skip_patch
+  config.register_ordering(:global) do |items|
+    randomized = RSpec::Core::Ordering::Random.new(config).order(items)
+
+    # put :before_patch examples first
+    randomized.partition { |x| x.metadata[:before_patch] }.flatten
+  end
+
   config.before do |example|
-    if example.metadata[:skip_patch]
-      Enumerable.remove_method(:rekey) if Enumerable.method_defined?(:rekey)
-    else
-      load "./lib/rekey.rb"
-    end
+    require gem_name unless example.metadata[:before_patch]
   end
 end
 
