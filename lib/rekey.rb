@@ -1,4 +1,4 @@
-require_relative 'rekey/rekey'
+require_relative "rekey/rekey"
 
 module Enumerable
   def rekey(key_handle = nil, value_handle = nil, &block)

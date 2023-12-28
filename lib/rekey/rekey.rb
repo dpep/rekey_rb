@@ -1,5 +1,5 @@
-require 'pluckit/pluck'
-require 'rekey/version'
+require "pluckit/pluck"
+require "rekey/version"
 
 
 module Rekey
@@ -30,7 +30,7 @@ module Rekey
 
           if key_value_fn.arity != 2
             raise ArgumentError.new(
-              'rekey block requests key/value pair but only value available'
+              "rekey block requests key/value pair but only value available"
             )
           end
 
@@ -52,10 +52,10 @@ module Rekey
   def validate_input!(key_handle, value_handle, &block)
     if block
       if (key_handle || value_handle)
-        raise ArgumentError, 'expected key / value handles, *or* block'
+        raise ArgumentError, "expected key / value handles, *or* block"
       end
     elsif key_handle.nil?
-      raise ArgumentError, 'key handle or block required'
+      raise ArgumentError, "key handle or block required"
     end
   end
 end

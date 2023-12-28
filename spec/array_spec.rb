@@ -1,8 +1,8 @@
 describe Rekey do
   let(:data) { [ 1, 2, 3 ] }
 
-  context 'with a block handler' do
-    it 'rekeys' do
+  context "with a block handler" do
+    it "rekeys" do
       expect(data.rekey {|v| v }).to eq({
         1 => 1,
         2 => 2,
@@ -16,9 +16,9 @@ describe Rekey do
       })
 
       expect(data.rekey {|v| v.to_s }).to eq({
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
+        "1" => 1,
+        "2" => 2,
+        "3" => 3,
       })
 
       expect(data.rekey {|v| nil }).to eq({
@@ -43,18 +43,18 @@ describe Rekey do
     end
   end
 
-  context 'with an arg handler' do
-    it 'rekeys' do
+  context "with an arg handler" do
+    it "rekeys" do
       expect(data.rekey(:to_s)).to eq({
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
+        "1" => 1,
+        "2" => 2,
+        "3" => 3,
       })
 
-      expect(data.rekey('to_s')).to eq({
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
+      expect(data.rekey("to_s")).to eq({
+        "1" => 1,
+        "2" => 2,
+        "3" => 3,
       })
 
       expect(data.rekey(:to_f)).to eq({
@@ -64,7 +64,7 @@ describe Rekey do
       })
     end
 
-    it 'revalues' do
+    it "revalues" do
       expect(data.rekey(:to_i, :to_i)).to eq({
         1 => 1,
         2 => 2,
@@ -72,20 +72,20 @@ describe Rekey do
       })
 
       expect(data.rekey(:to_s, :to_f)).to eq({
-        '1' => 1.0,
-        '2' => 2.0,
-        '3' => 3.0,
+        "1" => 1.0,
+        "2" => 2.0,
+        "3" => 3.0,
       })
 
-      expect(data.rekey('to_s', 'to_f')).to eq({
-        '1' => 1.0,
-        '2' => 2.0,
-        '3' => 3.0,
+      expect(data.rekey("to_s", "to_f")).to eq({
+        "1" => 1.0,
+        "2" => 2.0,
+        "3" => 3.0,
       })
     end
 
-    context 'with an array of arrays' do
-      it 'works with a matrix' do
+    context "with an array of arrays" do
+      it "works with a matrix" do
         input = [
           [ 1, 2, 3 ],
           [ 4, 5, 6 ],
@@ -99,7 +99,7 @@ describe Rekey do
         })
       end
 
-      it 'works when rows are uneven' do
+      it "works when rows are uneven" do
         input = [
           [ 1 ],
           [ 2, 1 ],
@@ -114,14 +114,14 @@ describe Rekey do
       end
     end
 
-    context 'with an array of hashes' do
+    context "with an array of hashes" do
       input = [
-        { i: 1, v: 'a' },
-        { i: 2, v: 'b' },
-        { i: 3, v: 'c' },
+        { i: 1, v: "a" },
+        { i: 2, v: "b" },
+        { i: 3, v: "c" },
       ]
 
-      it 'rekeys' do
+      it "rekeys" do
         expect(input.rekey(:i)).to eq({
           1 => input[0],
           2 => input[1],
@@ -129,11 +129,11 @@ describe Rekey do
         })
       end
 
-      it 'revalues' do
+      it "revalues" do
         expect(input.rekey(:i, :v)).to eq({
-          1 => 'a',
-          2 => 'b',
-          3 => 'c',
+          1 => "a",
+          2 => "b",
+          3 => "c",
         })
       end
     end

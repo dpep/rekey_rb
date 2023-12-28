@@ -25,14 +25,12 @@ RSpec.configure do |config|
   end
 
   # monkey patch unless :skip_patch
-  config.around do |example|
+  config.before do |example|
     if example.metadata[:skip_patch]
       Enumerable.remove_method(:rekey) if Enumerable.method_defined?(:rekey)
     else
       load "./lib/rekey.rb"
     end
-
-    example.run
   end
 end
 
