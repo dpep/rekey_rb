@@ -1,0 +1,10 @@
+###  4.1.0  (2026-04-10)
+- ruby version / gem updates
+
+###  4.0.0  (2018-10-08)
+- 7a49250 better monkey patching tests
+- 9d94818 extend self
+- 574461c clean up arity handling, expand tests
+- 4b85ea6 require a key handle or block...for a nil key operation, use PluckIt
+- d6cba35 fix unit test requires
+
