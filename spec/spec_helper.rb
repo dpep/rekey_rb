@@ -1,4 +1,4 @@
-require "byebug"
+require "debug"
 require "rspec"
 require "simplecov"
 
