@@ -1,15 +1,12 @@
-package_name = File.basename(__FILE__).split(".")[0]
-require "./lib/#{package_name}/version"
-
-package = Rekey
+require_relative "lib/rekey/version"
 
 Gem::Specification.new do |s|
-  s.name        = package_name
-  s.version     = package.const_get "VERSION"
+  s.name        = "rekey"
+  s.version     = Rekey::VERSION
   s.authors     = ["Daniel Pepper"]
-  s.summary     = package.to_s
+  s.summary     = "Rekey"
   s.description = "Reformat Enumerables into Hashes, using derived keys / values"
-  s.homepage    = "https://github.com/dpep/#{package_name}_rb"
+  s.homepage    = "https://github.com/dpep/rekey_rb"
   s.license     = "MIT"
   s.files       = `git ls-files * ":!:spec"`.split("\n")
 
