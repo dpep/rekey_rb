@@ -45,6 +45,11 @@ describe Rekey do
       })
     end
 
+    it "passes key and value to a block with two required args and a splat" do
+      expect(data.rekey {|k, v, *| "#{k}#{v}" }).to eq({ "a1" => 1, "b2" => 2, "c3" => 3 })
+      expect(data.rekey(&->(k, v, *) { k })).to eq(data)
+    end
+
     it "handles nil" do
       expect(data.rekey {|k, v| nil }).to eq({
         nil => 3,

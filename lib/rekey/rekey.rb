@@ -27,9 +27,8 @@ module Rekey
       new_value = value
 
       if block
-        if block.arity < 2
+        if required_args(block) < 2
           # block only wants value
-          # arity -1 is a function pointer, eg. &:to_i
           new_key = block.call(value)
         else
           # block wants both key and value
@@ -55,9 +54,14 @@ module Rekey
 
   private
 
+  # a negative arity means -(required + 1): optional args or a splat follow
+  def required_args(block)
+    block.arity < 0 ? -block.arity - 1 : block.arity
+  end
+
   def validate_input!(key_handle, value_handle, &block)
     if block
-      if (key_handle || value_handle)
+      unless key_handle.nil? && value_handle.nil?
         raise ArgumentError, "expected key / value handles, *or* block"
       end
     elsif key_handle.nil?
