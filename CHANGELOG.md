@@ -1,3 +1,6 @@
+###  Unreleased
+- drop Ruby 3.0 and 3.1 (end of life); requires Ruby >= 3.2
+
 ###  4.1.0  (2026-04-10)
 - ruby version / gem updates
 

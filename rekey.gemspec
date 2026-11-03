@@ -1,18 +1,24 @@
 require_relative "lib/rekey/version"
 
 Gem::Specification.new do |s|
-  s.name        = "rekey"
-  s.version     = Rekey::VERSION
   s.authors     = ["Daniel Pepper"]
-  s.summary     = "Rekey"
   s.description = "Reformat Enumerables into Hashes, using derived keys / values"
+  s.files       = `git ls-files * ':!:spec'`.split("\n")
   s.homepage    = "https://github.com/dpep/rekey_rb"
   s.license     = "MIT"
-  s.files       = `git ls-files * ":!:spec"`.split("\n")
+  s.name        = "rekey"
+  s.summary     = s.description
+  s.version     = Rekey::VERSION
 
-  s.required_ruby_version = ">= 3"
+  s.metadata = {
+    "changelog_uri" => "#{s.homepage}/blob/main/CHANGELOG.md",
+    "rubygems_mfa_required" => "true",
+    "source_code_uri" => s.homepage,
+  }
 
-  s.add_runtime_dependency "pluckit"
+  s.required_ruby_version = ">= 3.2"
+
+  s.add_dependency "pluckit", ">= 1.1"
 
   s.add_development_dependency "debug"
   s.add_development_dependency "rspec"

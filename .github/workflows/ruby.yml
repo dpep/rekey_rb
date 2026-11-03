@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    types: [ opened, edited, synchronize ]
 
 jobs:
   test:
@@ -13,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: [ "4.0", "3.4", "3.3" ]
+        ruby-version: [ "4.0", "3.4", "3.3", "3.2" ]
 
     name: Ruby ${{ matrix.ruby-version }}
 
