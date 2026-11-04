@@ -136,6 +136,12 @@ describe Rekey do
           3 => "c",
         })
       end
+
+      it "accepts callable handles" do
+        expect(input.rekey(->(h) { h[:i] * 10 }, :v)).to eq({ 10 => "a", 20 => "b", 30 => "c" })
+        expect(input.rekey(:i, ->(h) { h[:v].upcase })).to eq({ 1 => "A", 2 => "B", 3 => "C" })
+        expect([ 1, 2 ].rekey(:itself, 10.method(:*))).to eq({ 1 => 10, 2 => 20 })
+      end
     end
   end
 end
