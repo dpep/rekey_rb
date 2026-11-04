@@ -1,4 +1,4 @@
-###  Unreleased
+###  4.2.0  (2026-11-03)
 - drop Ruby 3.0 and 3.1 (end of life); requires Ruby >= 3.2
 - fix: a block with two required args and a splat (`|k, v, *rest|`) gets the key and value instead of the value as `k`
 - fix: a `false` handle passed together with a block raises ArgumentError instead of being ignored
