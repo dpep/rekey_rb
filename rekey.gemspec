@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
     "source_code_uri" => s.homepage,
   }
 
-  s.required_ruby_version = ">= 3.2"
+  s.required_ruby_version = ">= 3.3"
 
   s.add_dependency "pluckit", ">= 1.3"
 
